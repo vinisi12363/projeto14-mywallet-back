@@ -22,7 +22,6 @@ export const create = async (req , res)=>{
 
 }
 
-
 export const findAllUsers = async (req, res) =>{
 
     try{
@@ -37,3 +36,18 @@ export const findAllUsers = async (req, res) =>{
     }
    
 }
+
+export const findByEmail = async (req , res) => {
+    const {email} = req.params
+
+    try {
+        const user =  await registerService.findEmail(email)
+
+        res.send(user)
+    }catch(err){return res.status(500).json({message:err.message})}
+    
+
+
+}
+
+

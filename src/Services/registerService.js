@@ -7,4 +7,6 @@ const create = (body) => User.create(body)
 
 const findAll = () => User.find()
 
-export default {create, findAll}
+const findEmail = (email) => User.find({email:email})
+
+export default {create, findAll, findEmail}
