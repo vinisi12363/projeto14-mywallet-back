@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt')
-const userSchema = require('../Model/User')
+import bcrypt from 'bcrypt'
+import  User from '../Model/User.js'
 
-const create = (body) => userSchema.validate(body)
 
-module.exports = create
+const create = (body) => User.create(body)
 
+export default {create}

@@ -1,51 +1,39 @@
-const  registerService = require('../Services/registerService')
+import userService from '../Services/registerService.js'
 
+ const create = async (req , res)=>{
+    const {name, email, password} = req.body
 
+    if(!name ||  !email || !password) return res.status(400).json({message:"todos os campos sao obrigatorios"})
 
-
-const registerNewUser = async (res , req)=>{
-    const {name, email , pwd} = req.body;
+    try{    
+        const user = await userService.create(req.body)
     
-    if(!name ||  !email || !pwd) return res.status(400).json({message:"todos os campos sao obrigatorios"})
-    
-    const validateUsr = validateUser({name, email, pwd})
-    const userAlreadyExist = verifyUserAlreadyExist (email)
-    const hashedPwd = bcrypt.hashSync (pwd, 10)
-
-    const validation = userSchema.validate({user}, { abortEarly: false });
-    if (validation.error) {
-        const errors = validation.error.details.map((detail) => detail.message);
-        return res.status(400).send(errors.message)
-    }
-  
-
-    if(userAlreadyExist) return res.status(409).json({error:`email  ${email} ja cadastrado, por favor escolha outro email`})
-    
-    try{ 
-        await db.collection("user").insertOne({name, email, pwd})
-
-        res.status(200).json({message:`usuario ${name} criado com sucesso`})
-    }catch(er){
-        return res.status(500).json({error:er})
-    }
-    
-
-}
-
-
-
-const verifyUserAlreadyExist = async (email)=>{
-     
-    try{
-        const exists = await db.collection("users").findOne({email})
-        if (exists){
-            return true;
-        }
-        return false;
+        if(!user) return res.status(400).send({message:"Error creating user"})
+        res.status(201).send({
+            message: "user created secessfully",
+            id: user._id,
+            name:user.name,
+            email:user.email,
+        })
     }catch(err){
-        console.log("Erro na funcao verifyUser: ",err)
-    }    
+        res.status(500).json({message:err.message})
+    }
+
 }
 
 
-module.exports = { registerNewUser }
+// export const verifyUserAlreadyExist = async (email)=>{
+     
+//     try{
+//         const exists = await db.collection("users").findOne({email})
+//         if (exists){
+//             return true;
+//         }
+//         return false;
+//     }catch(err){
+//         console.log("Erro na funcao verifyUser: ",err)
+//     }    
+// }
+
+
+export default {create}

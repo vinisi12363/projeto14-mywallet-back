@@ -1,18 +1,19 @@
-const  {MongoClient} = require("mongodb")
-const  dotenv = require("dotenv")
-dotenv.config()
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
-async function connectDataBase(){
-    const mongoClient = new MongoClient(process.env.DATABASE_URL)
-    const db = undefined
-    try{
-        mongoClient.connect()
-        db = mongoClient.db()
-    }catch(err){
-        (err) => console.log(err.message)
-}
-}
+const connectDataBase = async () => {
+    console.log("Aguarde, conectando ao banco de dados...");
 
+    try {
+        await mongoose.connect(process.env.DATABASE_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log(`Conectado com sucesso`);
+    } catch (err) {
+        console.log(err);
+    }
+};
 
-module.exports = connectDataBase
-
+export default connectDataBase;

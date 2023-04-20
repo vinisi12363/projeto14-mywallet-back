@@ -1,10 +1,13 @@
-const joi  = require('joi')
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const userSchema  = joi.object ({
-    name:joi.string().required().min(3),
-    email:joi.string().email().required(),
-    password:joi.string().min(6).required()
-})
+const userSchema = new mongoose.Schema({
+    name: {type:String, required:true}, 
+    email: {type:String, required:true, unique:true, match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
+    password: {type:String, required:true},
+    token: {type:String},
+  });
 
-module.exports = userSchema
-
+  const User = mongoose.model('User', userSchema);
+  
+  export default User
