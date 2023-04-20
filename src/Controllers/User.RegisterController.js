@@ -50,4 +50,14 @@ export const findByEmail = async (req , res) => {
 
 }
 
+export const findById = async (req , res) => {
+  const {id} = req.params
 
+  try{
+    const user = await registerService.findByIdService(id)
+
+  
+    res.send(user)
+  }catch(err){res.status(500).send({error:err.message})}
+
+}

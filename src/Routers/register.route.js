@@ -1,10 +1,12 @@
 import express from 'express'
-import {create , findAllUsers, findByEmail} from '../Controllers/User.RegisterController.js'
+import { validId , validUser, } from '../Middlewares/validateUser.middleware.js';
+import {create , findAllUsers, findById} from '../Controllers/User.RegisterController.js'
+import verifyEmailExists  from '../Middlewares/verifyEmailExists.middleware.js';
 
 const router = express.Router()
 
-router.post('/', create);
+router.post('/', verifyEmailExists,  create);
 router.get('/', findAllUsers)
-router.get('/:email', findByEmail)
-
+//router.get('/:email', findByEmail)  isso aqui é da rota de login
+router.get('/:id', validId, validUser,  findById)
 export default router
