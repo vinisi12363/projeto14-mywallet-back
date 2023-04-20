@@ -1,12 +1,13 @@
-import userService from '../Services/registerService.js'
+import registerService from '../Services/registerService.js'
 
- const create = async (req , res)=>{
+
+export const create = async (req , res)=>{
     const {name, email, password} = req.body
 
     if(!name ||  !email || !password) return res.status(400).json({message:"todos os campos sao obrigatorios"})
 
     try{    
-        const user = await userService.create(req.body)
+        const user = await registerService.create(req.body)
     
         if(!user) return res.status(400).send({message:"Error creating user"})
         res.status(201).send({
@@ -22,18 +23,17 @@ import userService from '../Services/registerService.js'
 }
 
 
-// export const verifyUserAlreadyExist = async (email)=>{
-     
-//     try{
-//         const exists = await db.collection("users").findOne({email})
-//         if (exists){
-//             return true;
-//         }
-//         return false;
-//     }catch(err){
-//         console.log("Erro na funcao verifyUser: ",err)
-//     }    
-// }
+export const findAllUsers = async (req, res) =>{
 
+    try{
+        const users = await registerService.findAll()
 
-export default {create}
+        if(users.length === 0 ) return res.status(400).json({message:"There are no registered users"})
+    
+        res.send(users)
+    
+    }catch(err){
+        res.status(500).json({message:err})
+    }
+   
+}

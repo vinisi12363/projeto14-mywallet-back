@@ -1,6 +1,6 @@
 
 import  connectDataBase from './Config/dbConnection.js'
-import registerRoute from './Routers/register.js' 
+import registerRoute from './Routers/register.route.js' 
 import express from 'express'
 
 const app = express()

@@ -4,4 +4,7 @@ import  User from '../Model/User.js'
 
 const create = (body) => User.create(body)
 
-export default {create}
+
+const findAll = () => User.find()
+
+export default {create, findAll}
