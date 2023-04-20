@@ -1,5 +1,5 @@
 import registerService from '../Services/registerService.js'
-
+import bcrypt from 'bcrypt'
 
 export const create = async (req , res)=>{
     const {name, email, password} = req.body
