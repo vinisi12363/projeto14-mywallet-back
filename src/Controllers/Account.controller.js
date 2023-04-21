@@ -1,4 +1,4 @@
-import {getAll, recordTransaction} from '../Services/BankAccount.service.js'
+import {getAll, recordTransaction} from '../Services/bankAccount.service.js'
 import dayjs from 'dayjs'
 
 export const getMovement = async (req, res) => {

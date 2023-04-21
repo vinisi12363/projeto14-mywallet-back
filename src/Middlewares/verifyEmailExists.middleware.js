@@ -8,7 +8,6 @@ import registerService from "../Services/registerService.js"
     try{
         const user = await registerService.findEmail(email)
 
-        console.log("USER DENTRO DO MIDDLEWARE :",user)
         if(email === user.email){  
             return res.status(409).send ({message:"email already registered, please try another email"})
         } 
