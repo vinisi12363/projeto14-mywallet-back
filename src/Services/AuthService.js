@@ -1,4 +1,8 @@
 import  User from '../Model/User.js'
+import  jwt  from 'jsonwebtoken'
 
 const findUser = (email) => User.findOne({email:email}).select("+password ")
-export default {findUser}
+
+const generateWebToken = (id) => jwt.sign({id: id}, process.env.SECRET_jwt, {expiresIn: 86000})
+
+export default {findUser , generateWebToken}

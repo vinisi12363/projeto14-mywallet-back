@@ -1,7 +1,8 @@
 
-import  connectDataBase from './Config/dbConnection.js'
+import connectDataBase from './Config/dbConnection.js'
 import registerRoute from './Routers/register.route.js'
-import loginRoute from './Routers/auth.route.js' 
+import loginRoute from './Routers/auth.route.js'
+import accountRoute  from './Routers/home.route.js'
 import express from 'express'
 
 const app = express()
@@ -11,6 +12,7 @@ const app = express()
 app.use(express.json())
 app.use("/registrar", registerRoute)
 app.use("/login", loginRoute)
+app.use("/home", accountRoute)
 
 connectDataBase()
 

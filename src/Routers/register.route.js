@@ -7,6 +7,5 @@ const router = express.Router()
 
 router.post('/', verifyEmailExists,  create);
 router.get('/', findAllUsers)
-//router.get('/:email', findByEmail)  isso aqui é da rota de login
 router.get('/:id', validId, validUser,  findById)
 export default router

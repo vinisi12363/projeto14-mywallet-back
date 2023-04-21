@@ -4,7 +4,7 @@ import registerService from "../Services/registerService.js"
  const verifyEmailExists = async (req, res, next)=>{
 
     const {email} = req.body
-    console.log("EMAIL DENTRO DO MIDDLE " , email)
+   
     try{
         const user = await registerService.findEmail(email)
 
