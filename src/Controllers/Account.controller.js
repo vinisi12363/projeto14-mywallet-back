@@ -13,9 +13,9 @@ export const getMovement = async (req, res) => {
         if(err) return res.status(401).send({message:"Token invalid"})
         if (decoded) {
           console.log("dentro do get",decoded) 
-             const userId = decoded.id
-            
-             const movement =  await getUserMovement(userId)
+             const userIdent = decoded.id
+             console.log('DECODED TYPE::::', typeof decoded.id, decoded.id)
+             const movement =  await getUserMovement(userIdent)
              if (!movement) return res.send([])
              res.status(201).send(movement)
     
@@ -40,10 +40,11 @@ export const addMovement = async (req, res)=>{
     Jwt.verify(token, process.env.SECRET_JWT , async (err, decoded )=>{
       if(err) return res.status(401).send({message:"Token invalid"})
       if (decoded) {
-           const userId = decoded.id
-          await recordTransaction({userId ,data , amount , descript, type })
+           const userIdent = decoded.id
+          
+           await recordTransaction({ userIdent ,data , amount , descript, type })
 
-          res.status(201).send({message:"movement created"})
+          res.status(201).send({message:"movement created"}) 
   
       }
      
