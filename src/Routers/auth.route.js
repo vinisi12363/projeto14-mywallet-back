@@ -1,10 +1,10 @@
 import express from 'express'
-import loginController from '../Controllers/User.AuthController.js'
+import {login} from '../Controllers/User.AuthController.js'
 import verifyEmailExists  from '../Middlewares/verifyEmailExists.middleware.js';
 
 const router = express.Router()
 
 
-router.post('/', verifyEmailExists, loginController.login)
+router.post('/', verifyEmailExists, login)
 
 export default router

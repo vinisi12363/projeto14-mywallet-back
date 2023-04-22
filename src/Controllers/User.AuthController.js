@@ -1,4 +1,4 @@
-import loginService from '../Services/authService.js'
+import authService from '../Services/authService.js'
 import bcrypt from 'bcrypt'
 
 export const login = async (req, res) =>{
@@ -6,7 +6,7 @@ export const login = async (req, res) =>{
     if(!email || !password) return res.status(422).send({message:"invalid email or password"})
 
     try{
-        const user = await loginService.findUser (email)
+        const user = await authService.findUser (email)
         const userIsValid =  await bcrypt.compare(password , user.password)
       
         if (!user) return res.status(404).send({message:"user or password are incorrect "})
@@ -15,12 +15,12 @@ export const login = async (req, res) =>{
         
         if(!userIsValid) return res.status(401).send({message:"user or password are incorrect"})
 
-        const token = loginService.generateWebToken(user.id)
-        if(userIsValid) return res.status(200).send(token)
+        const token = authService.generateWebToken(user.id)
+        if(userIsValid) return res.status(200).send({token:token, username:user.name })
        
     }catch(err){
         res.status(500).json({message:err.message})
-    }
+    } 
    
 }
 
